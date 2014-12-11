@@ -18,6 +18,7 @@ module.exports = function() {
 		sync: true
 	}, function(err, environmentFiles) {
 		if (!environmentFiles.length) {
+			
 			if (process.env.NODE_ENV) {
 				console.error(chalk.red('No configuration file found for "' + process.env.NODE_ENV + '" environment using development instead'));
 			} else {

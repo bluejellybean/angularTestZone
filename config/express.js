@@ -14,7 +14,7 @@ var fs = require('fs'),
 	methodOverride = require('method-override'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
-	passport = require('passport'),
+	//passport = require('passport'),
 	mongoStore = require('connect-mongo')({
 		session: session
 	}),
@@ -63,6 +63,8 @@ module.exports = function(db) {
 	// Set views path and view engine
 	app.set('view engine', 'server.view.html');
 	app.set('views', './app/views');
+	
+
 
 	// Environment dependent middleware
 	if (process.env.NODE_ENV === 'development') {
@@ -97,8 +99,8 @@ module.exports = function(db) {
 	}));
 
 	// use passport session
-	app.use(passport.initialize());
-	app.use(passport.session());
+//	app.use(passport.initialize());
+//	app.use(passport.session());
 
 	// connect flash for flash messages
 	app.use(flash());
