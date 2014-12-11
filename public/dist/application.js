@@ -311,8 +311,8 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
 'use strict';
 
-angular.module('incrementalgame').controller('IncrementalgameController', ['$interval', 'Gamelogic',
- function($interval, Gamelogic) {
+angular.module('incrementalgame').controller('IncrementalgameController', ['$scope', '$interval', 'Gamelogic',
+ function($scope, $interval, Gamelogic) {
 
     var Tiers = [
       {
@@ -400,10 +400,12 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$int
       Gamelogic.decreaseMoneyBy( Tiers[tier].upgrade[0].price );
       Gamelogic.increaseUpgradeLevel( tier );
     };
-
+    
+    
+    
     // Run UI update code every 10ms
-    $interval(function() {
-      
+    var gameTick = $interval(function() {
+
       var workers = Gamelogic.getUserInformation();
       workers = workers.workers;
 
@@ -422,16 +424,12 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$int
           Gamelogic.increaseMoneyBy(increaseValue);
         }
       });
-      // add 1 per second
-     /* var workerCount = clickLogic.getWorkerCount(0)
-      var increaseValue = workerCount * 1;
-      
-      clickLogic.increaseMoneyBy(increaseValue);
-*/
-      //add 5 per second
-    //  UserInformation.currentMoney += (UserInformation.workers[1] * 5 / 100);
 
     }, 1000);
+    //stop gameTick
+    $scope.$on('$destroy', function () {
+      $interval.cancel(gameTick);
+    });
 
   }
 ]);
@@ -466,21 +464,26 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     clickAPI.loadUserInformation = function () {
 
+
       var retrievedObject = localStorage.getItem('userInfoObject');
 
-      retrievedObject = JSON.parse(retrievedObject); 
+      if ( typeof retrievedObject !== 'undefined' && retrievedObject !== null ) { 
+        retrievedObject = JSON.parse(retrievedObject); 
 
-      var loadedUserInformation = atob(retrievedObject);
-      
-      loadedUserInformation = JSON.parse(loadedUserInformation);
+        var loadedUserInformation = atob(retrievedObject);
+        
+        loadedUserInformation = JSON.parse(loadedUserInformation);
 
-      this.resetUserInformation();
+        this.resetUserInformation();
 
-      UserInformation.currentMoney = loadedUserInformation.currentMoney;
-      UserInformation.workers = loadedUserInformation.workers;
-      UserInformation.upgrades = loadedUserInformation.upgrades;
-      UserInformation.settings.color = loadedUserInformation.settings.color;
-
+        UserInformation.currentMoney = loadedUserInformation.currentMoney;
+        UserInformation.workers = loadedUserInformation.workers;
+        UserInformation.upgrades = loadedUserInformation.upgrades;
+        UserInformation.settings.color = loadedUserInformation.settings.color;
+      } else {
+        //TODO: display this is a more clear way OR just gray out the load button until availabe
+        console.log("can't load item!");
+      }
     };
 
     clickAPI.getInvertState = function() {

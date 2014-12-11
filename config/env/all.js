@@ -6,7 +6,7 @@ module.exports = {
 		description: 'My blog and portfolio site',
 		keywords: 'sweet, page, yeah'
 	},
-	port: process.env.PORT || 3000,
+	port: process.env.PORT || 4200,
 	templateEngine: 'swig',
 	sessionSecret: 'MEAN',
 	sessionCollection: 'sessions',
