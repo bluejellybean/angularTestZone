@@ -28,21 +28,26 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     clickAPI.loadUserInformation = function () {
 
+
       var retrievedObject = localStorage.getItem('userInfoObject');
 
-      retrievedObject = JSON.parse(retrievedObject); 
+      if ( typeof retrievedObject !== 'undefined' && retrievedObject !== null ) { 
+        retrievedObject = JSON.parse(retrievedObject); 
 
-      var loadedUserInformation = atob(retrievedObject);
-      
-      loadedUserInformation = JSON.parse(loadedUserInformation);
+        var loadedUserInformation = atob(retrievedObject);
+        
+        loadedUserInformation = JSON.parse(loadedUserInformation);
 
-      this.resetUserInformation();
+        this.resetUserInformation();
 
-      UserInformation.currentMoney = loadedUserInformation.currentMoney;
-      UserInformation.workers = loadedUserInformation.workers;
-      UserInformation.upgrades = loadedUserInformation.upgrades;
-      UserInformation.settings.color = loadedUserInformation.settings.color;
-
+        UserInformation.currentMoney = loadedUserInformation.currentMoney;
+        UserInformation.workers = loadedUserInformation.workers;
+        UserInformation.upgrades = loadedUserInformation.upgrades;
+        UserInformation.settings.color = loadedUserInformation.settings.color;
+      } else {
+        //TODO: display this is a more clear way OR just gray out the load button until availabe
+        console.log("can't load item!");
+      }
     };
 
     clickAPI.getInvertState = function() {
