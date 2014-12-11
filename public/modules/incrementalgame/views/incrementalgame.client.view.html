@@ -1,0 +1,100 @@
+
+
+  <div ng-controller="GameMenuController as menu">
+
+  <!--<link rel="stylesheet" href="/modules/incrementalgame/style/invertedStyle.css"> -->
+  <link rel="stylesheet" href="/modules/incrementalgame/style/invertedStyle.css" ng-disabled="menu.invertedState == 'default'">
+
+  <link rel="stylesheet" href="/modules/incrementalgame/style/defaultStyle.css" ng-disabled="menu.invertedState == 'inverted'">
+
+
+  <nav class="navbar navbar-inverse" role="navigation">
+  <!-- <div class="container-fluid"> -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href = "" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Stats <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="">View Stats</a></li>
+            <li><a href="">View Achivements</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href = "" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="" ng-click="menu.saveGame()">Save Game</a></li>
+            <li><a href="" ng-click="menu.loadGame()">Load Game</a></li>
+            <li><a href="" ng-click="menu.invertColors()">Invert Colors</a></li>
+            <li class="divider"></li>
+            <li><a href = "" ng-click="menu.resetGame()">Reset Game?</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
+
+
+
+
+
+<section> <!-- data-ng-controller="IncrementalgameController as click" -->
+	<link rel="stylesheet" href="/modules/incrementalgame/style/gameStyle.css">
+
+
+
+<div class="container">
+
+
+
+      <h1>Widgets: <span id="widget-count">{{click.userInfo.currentMoney | number: 0}}</span></h1>
+
+      <button id="produce-widget" type="button" class="btn btn-primary btn-lg" ng-click="click.produceWidget()">Produce Widget</button>
+
+
+      <h2>Store:</h2>
+
+    </div>
+
+
+</div>
+
+
+  <div class="container" ng-repeat="level in click.level">
+
+  
+    <div class="row">
+  
+      <div class="col-xs-12 col-sm-4">
+        <button type="button" class="btn btn-primary btn-lg" 
+                  ng-click="click.buyWorker(click.level.indexOf(level))"
+                   ng-disabled="click.getWorkerCost(click.level.indexOf(level)) > click.userInfo.currentMoney">{{level.worker.name}} - {{level.worker.price}}</button>
+      </div>
+      
+      <div class="col-xs-12 col-sm-4">
+        <button type="button" class="btn btn-primary btn-lg"
+                  ng-click="click.buyUpgrade(click.level.indexOf(level))"
+                   ng-disabled="click.getUpgradeCost(click.level.indexOf(level)) > click.userInfo.currentMoney" >{{level.upgrade[click.getUpgradeLevel(click.level.indexOf(level))].name}} - {{level.upgrade[click.getUpgradeLevel(click.level.indexOf(level))].price}}</button>
+      </div>
+      
+      <div class="col-xs-12 col-sm-4">
+        <button type="button" class="btn btn-primary btn-lg" >specialUpgrade</button>
+      </div>
+    </div>
+  
+
+  </div>
+
+
+
+</window>
+
+
+
+	
+</section>
