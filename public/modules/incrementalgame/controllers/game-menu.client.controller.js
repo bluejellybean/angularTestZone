@@ -5,6 +5,7 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
     this.invertedState = Gamelogic.getInvertState();
 
+
     this.saveGame = function() {
 
       Gamelogic.saveUserInformation();
@@ -24,7 +25,6 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
     };
 
-
    	this.invertColors = function () {
    		
    		if ( this.invertedState == "default" ) {
@@ -36,5 +36,5 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
    		}
 
    		Gamelogic.flipInvertState();
-	}
+	};
 }]);

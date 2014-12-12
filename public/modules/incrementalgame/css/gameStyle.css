@@ -9,7 +9,7 @@
 
 
 
-.btn{
+.btn, .click-nav ul .clicker {
   min-width: 100%;
   white-space:nowrap;
   color : #F90;
@@ -26,7 +26,7 @@
   border:0px solid transparent;
   background-color : #333;
 }
-.btn:hover{
+.btn:hover, .click-nav ul .clicker:hover{
   cursor : pointer;
   color : #FFF;
   border:0px solid transparent;
@@ -34,7 +34,7 @@
 
 }
 
-.btn:active{
+.btn:active, .click-nav ul .active {
   color : #CCC;
   border:0px solid transparent;
   background-color : #995b00;

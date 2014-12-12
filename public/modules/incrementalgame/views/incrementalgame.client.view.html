@@ -7,33 +7,74 @@
 
   <link rel="stylesheet" href="/modules/incrementalgame/style/defaultStyle.css" ng-disabled="menu.invertedState == 'inverted'">
 
+  <link rel="stylesheet" href="/modules/incrementalgame/style/main.css">
+    <link rel="stylesheet" href="/modules/incrementalgame/style/demo.css">
 
   <nav role="navigation">
   
-
+<!--
       <ul class="nav">
-        <li class="">
+        <li class=""> -->
           <!-- <a href = "" class="" role="button">Stats</a> -->
-          <!-- <ul class="" role="menu"> -->
+          <!-- <ul class="" role="menu"> 
             <li><a href="">View Stats</a></li>
             <li><a href="">View Achivements</a></li>
-         <!--  </ul> -->
+            -->
+         <!--  </ul> 
         </li>
 
          <li class="">
+          -->
           <!-- <a href = "" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a> -->
-         <!--  <ul class="dropdown-menu" role="menu"> -->
+         <!--  <ul class="dropdown-menu" role="menu"> 
             <li><a href="" ng-click="menu.saveGame()">Save Game</a></li>
             <li><a href="" ng-click="menu.loadGame()">Load Game</a></li>
             <li><a href="" ng-click="menu.invertColors()">Invert Colors</a></li>
             
-            <li><a href = "" ng-click="menu.resetGame()">Reset Game?</a></li>
-         <!--  </ul> -->
+            <li><a href = "" ng-click="menu.resetGame()">Reset Game?</a></li>-->
+         <!--  </ul>
         </li>
       </ul>
 
   </nav>
+ -->
+ 
+<div class="row">
+    <!-- Clickable Nav -->
+    <div class="click-nav six columns">
+      <ul class="js">
+        <li>
+          <a  href="" class="clicker" ng-click="dropStat=!dropStat"><img src="modules/incrementalgame/img/i-1.png" alt="Icon">View Stats</a>
+          <ul ng-show="dropStat">
+            <li><a href=""><img src="modules/incrementalgame/img/i-2.png" alt="Icon">View Stats</a></li>
+            <li><a href=""><img src="modules/incrementalgame/img/i-3.png" alt="Icon">View Achivements</a></li>
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+
+    <!-- Clickable Nav -->
+    <div class="click-nav six columns" >
+      <ul class="js">
+        <li>
+          <a  href="" class="clicker" ng-click="dropSetting=!dropSetting"><img src="modules/incrementalgame/img/i-1.png" alt="Icon">Settings</a>
+          <ul ng-show="dropSetting">
+            <li><a href="" ng-click="menu.saveGame()"><img src="modules/incrementalgame/img/i-3.png" alt="Icon">Save Game</a></li>
+            <li><a href="" ng-click="menu.loadGame()"><img src="modules/incrementalgame/img/i-4.png" alt="Icon">Load Game</a></li>
+            <li><a href="" ng-click="menu.invertColors()"><img src="modules/incrementalgame/img/i-5.png" alt="Icon">Invert Colors</a></li>
+            <li><a href="" ng-click="menu.resetGame()"><img src="modules/incrementalgame/img/i-6.png" alt="Icon">Reset Game?</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
 </div>
+</div>
+
+
 
 <section>
 
