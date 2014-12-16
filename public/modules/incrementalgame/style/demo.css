@@ -3,6 +3,7 @@
 TODO: clean and move these into their proper folder; */
 .click-nav {
 	margin:100px auto;
+	margin-top: 0;
 	width:200px;
 }
 .click-nav ul {
@@ -23,7 +24,7 @@ TODO: clean and move these into their proper folder; */
 
 .click-nav img {
 	position:absolute;
-	top:9px;
+	top:11px;
 	left:12px;
 }
 .click-nav ul li a {
