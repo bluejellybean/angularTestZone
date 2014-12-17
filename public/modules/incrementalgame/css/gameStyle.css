@@ -6,7 +6,7 @@
   color : #F90;
   background-color : #333;
 
-  border:0px solid transparent;
+  border: none;
 }
 
 .btn-primary:focus {
@@ -14,20 +14,20 @@
   white-space:nowrap;
   color : #F90;
   
-  border:0px solid transparent;
+  border:none;
   background-color : #333;
 }
 .btn-primary:hover, .click-nav ul .clicker:hover{
   cursor : pointer;
   color : #FFF;
-  border:0px solid transparent;
+  border: none;
   background-color : #F90;
 
 }
 
 .btn-primary:active, .click-nav ul .active {
   color : #CCC;
-  border:0px solid transparent;
+  border: none;
   background-color : #995b00;
 }
 

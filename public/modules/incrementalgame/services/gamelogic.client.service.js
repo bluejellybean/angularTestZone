@@ -46,7 +46,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
         UserInformation.settings.color = loadedUserInformation.settings.color;
       } else {
         //TODO: display this is a more clear way OR just gray out the load button until availabe
-        console.log("can't load item!");
+        console.log('can\'t load item!');
       }
     };
 
@@ -56,13 +56,13 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     clickAPI.flipInvertState = function() {
 
-      if (UserInformation.settings.color == 'default') {
+      if (UserInformation.settings.color === 'default') {
         UserInformation.settings.color = 'inverted';
       } else {
         UserInformation.settings.color = 'default';
       }
       
-    }
+    };
 
     clickAPI.resetUserInformation = function () {
 

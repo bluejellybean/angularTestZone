@@ -27,12 +27,12 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
    	this.invertColors = function () {
    		
-   		if ( this.invertedState == "default" ) {
+   		if ( this.invertedState === 'default' ) {
 
-   			this.invertedState = "inverted";
+   			this.invertedState = 'inverted';
    		} else {
 
-   			this.invertedState = "default"
+   			this.invertedState = 'default';
    		}
 
    		Gamelogic.flipInvertState();

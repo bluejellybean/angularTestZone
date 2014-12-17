@@ -79,9 +79,13 @@ a.fill-div {
   top:11px;
   left:12px;
 }
+.click-nav ul li a:hover {
+  background-color: #f3f3f3;
+}
+
 .click-nav ul li a {
   display:block;
-  padding:8px 10px 8px 40px;
+
   text-decoration:none;
   background-color: #e3e3e3;
   border-radius: 4px;
@@ -89,11 +93,10 @@ a.fill-div {
   text-align: center;
   font-size: 11px;
   font-weight: 600;
-  text-decoration: none;
   cursor: pointer;
   height: 38px;
   line-height: 38px;
-  padding: 0 30px;
+  
   letter-spacing: .1rem;
   text-transform: uppercase;
 }
