@@ -1,13 +1,4 @@
-
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
-
 
 .btn, .click-nav ul .clicker {
   min-width: 100%;
@@ -56,4 +47,8 @@
     background-color: white;
     color:black;
 }
+
+
+
+
 
