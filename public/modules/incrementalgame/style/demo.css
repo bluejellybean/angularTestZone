@@ -2,8 +2,8 @@
 /*Dropdowns
 TODO: clean and move these into their proper folder; */
 .click-nav {
-	margin:100px auto;
-	margin-top: 0;
+	margin:10px auto;
+
 	width:200px;
 }
 .click-nav ul {
@@ -34,7 +34,7 @@ TODO: clean and move these into their proper folder; */
 
 	text-decoration:none;
 	
-	background-color: transparent;
+	background-color: #e3e3e3;
 	border-radius: 4px;
 	color: #555;
 	text-align: center;

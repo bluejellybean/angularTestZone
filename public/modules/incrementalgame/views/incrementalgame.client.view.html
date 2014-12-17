@@ -9,46 +9,20 @@
 
   <link rel="stylesheet" href="/modules/incrementalgame/style/main.css">
     <link rel="stylesheet" href="/modules/incrementalgame/style/demo.css">
-
-  <nav role="navigation">
-  
-<!--
-      <ul class="nav">
-        <li class=""> -->
-          <!-- <a href = "" class="" role="button">Stats</a> -->
-          <!-- <ul class="" role="menu"> 
-            <li><a href="">View Stats</a></li>
-            <li><a href="">View Achivements</a></li>
-            -->
-         <!--  </ul> 
-        </li>
-
-         <li class="">
-          -->
-          <!-- <a href = "" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a> -->
-         <!--  <ul class="dropdown-menu" role="menu"> 
-            <li><a href="" ng-click="menu.saveGame()">Save Game</a></li>
-            <li><a href="" ng-click="menu.loadGame()">Load Game</a></li>
-            <li><a href="" ng-click="menu.invertColors()">Invert Colors</a></li>
-            
-            <li><a href = "" ng-click="menu.resetGame()">Reset Game?</a></li>-->
-         <!--  </ul>
-        </li>
-      </ul>
-
-  </nav>
- -->
  
 <div class="row">
+  <div class="six columns">
+    &nbsp;
+  </div>
+
     <!-- Clickable Nav -->
-    <div class="click-nav six columns">
+    <div class="click-nav three columns">
       <ul class="js">
         <li>
-          <a  href="" class="clicker" ng-click="dropStat=!dropStat">View Stats</a>
+          <a  href="" class="clicker" ng-click="dropStat=!dropStat">Progress</a>
           <ul ng-show="dropStat">
-            <li><a href=""><img src="modules/incrementalgame/img/star-2.png" alt="Icon">View Stats</a></li>
-            <li><a href=""><img src="modules/incrementalgame/img/star.png" alt="Icon">View Achivements</a></li>
-
+            <li><a href=""><img src="modules/incrementalgame/img/star-2.png" alt="Icon">Stats</a></li>
+            <li><a href=""><img src="modules/incrementalgame/img/star.png" alt="Icon">Achivements</a></li>
           </ul>
         </li>
       </ul>
@@ -57,7 +31,7 @@
 
 
     <!-- Clickable Nav -->
-    <div class="click-nav six columns" >
+    <div class="click-nav three columns" >
       <ul class="js">
         <li>
           <a  href="" class="clicker" ng-click="dropSetting=!dropSetting">Settings</a>
