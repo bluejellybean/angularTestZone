@@ -52,7 +52,15 @@ a.fill-div {
 	border-radius: 2px;
 }
 .btn-menu:hover {
-	background-color: gray;
+	background-color: #d7d7d7;
+}
+
+.btn-menu {  
+  -webkit-transition: background .1s linear;
+  -moz-transition: background .1s linear;
+  -ms-transition: background .1s linear;
+  -o-transition: background .1s linear;
+  transition: background .1s linear;
 }
 
 .click-nav {
@@ -100,3 +108,4 @@ a.fill-div {
   letter-spacing: .1rem;
   text-transform: uppercase;
 }
+
