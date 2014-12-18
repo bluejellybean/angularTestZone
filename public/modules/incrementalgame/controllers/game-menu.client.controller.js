@@ -3,6 +3,14 @@
 angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 	function(Gamelogic) {
 
+
+    this.modalShown = false;
+    this.toggleModal = function() {
+      console.log('toggle');
+      this.modalShown = !this.modalShown;
+    };
+
+    
     this.invertedState = Gamelogic.getInvertState();
 
 

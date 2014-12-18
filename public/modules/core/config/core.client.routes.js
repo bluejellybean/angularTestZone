@@ -15,6 +15,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		.state('about', {
 			url: '/about',
+			controller: 'HeaderController as hee',
 			templateUrl: 'modules/core/views/about.client.view.html'
 		});
 	}

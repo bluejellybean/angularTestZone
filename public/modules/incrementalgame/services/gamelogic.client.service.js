@@ -10,11 +10,20 @@ angular.module('incrementalgame').factory('Gamelogic', [
       currentMoney: 0,
       workers: [0,0,0,0,0],
       upgrades: [0,0,0,0,0,],
+      totalClicks: 0,
       settings: {
         color: 'default'
       }
 
     };
+
+    clickAPI.increaseTotalClicksByOne = function() {
+      UserInformation.totalClicks = UserInformation.totalClicks + 1;
+    };
+
+/*    clickAPI.getClickCount = function() {
+      return UserInformation.clickCount;
+    }*/
 
     clickAPI.saveUserInformation = function() {
       

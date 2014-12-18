@@ -1,4 +1,6 @@
-<div ng-controller="GameMenuController as menu">
+<section ng-click="click.increaseTotalClicks()">
+
+<div ng-controller="GameMenuController as menu" >
 
   
   <link rel="stylesheet" href="/modules/incrementalgame/style/invertedStyle.css" ng-disabled="menu.invertedState == 'default'">
@@ -16,7 +18,7 @@
         <li>
           <a  href="" class="clicker" ng-click="dropStat=!dropStat">Progress</a>
           <ul ng-show="dropStat">
-            <li><a href=""><img src="modules/incrementalgame/img/star-2.png" alt="Icon">Stats</a></li>
+            <li ng-click='menu.toggleModal()'><a href=""><img src="modules/incrementalgame/img/star-2.png" alt="Icon">Stats</a></li>
             <li><a href=""><img src="modules/incrementalgame/img/star.png" alt="Icon">Achivements</a></li>
           </ul>
         </li>
@@ -41,16 +43,16 @@
     </div>
 
 </div>
+
+
+<modal-dialog show='menu.modalShown' width='750px' height='60%'>
+  <p>Total Number of Clicks: {{click.userInfo.totalClicks}}<p>
+  <p>Total Number of Workers 1s: {{click.userInfo.workers[0]}}<p>
+</modal-dialog>
 </div>
 
 
-
-<section>
-
-
-
 <div>
-
 
 
       <h1>Widgets: <span id="widget-count">{{click.userInfo.currentMoney | number: 0}}</span></h1>
@@ -97,5 +99,5 @@
 
 
 
-	
+
 </section>

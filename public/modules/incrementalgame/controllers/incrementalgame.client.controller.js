@@ -104,6 +104,14 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
     this.userInfo = Gamelogic.getUserInformation();
     this.level = Tiers;
 
+    this.increaseTotalClicks = function() {
+      Gamelogic.increaseTotalClicksByOne();
+    };
+
+/*    this.getClickCount = function() {
+      return GameLogic.getClickCount();
+    };*/
+
     // Increase money every time produce-widget is clicked
     this.produceWidget = function() {
       Gamelogic.increaseMoneyBy(1);
