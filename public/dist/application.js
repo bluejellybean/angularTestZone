@@ -302,12 +302,12 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
    	this.invertColors = function () {
    		
-   		if ( this.invertedState == "default" ) {
+   		if ( this.invertedState === 'default' ) {
 
-   			this.invertedState = "inverted";
+   			this.invertedState = 'inverted';
    		} else {
 
-   			this.invertedState = "default"
+   			this.invertedState = 'default';
    		}
 
    		Gamelogic.flipInvertState();
@@ -342,7 +342,7 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       {
         worker: {
           name: 'worker 2',
-          price: 15,
+          price: 50,
           description: 'was the first worker, gain 5 item per sec',
         },
         upgrade: [
@@ -357,7 +357,64 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
             description: 'Was the second upgrade, x4 worker2 production'
           }
         ]
-      }
+      },
+      {
+        worker: {
+          name: 'worker 3',
+          price: 100,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier3 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier3 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
+      {
+      worker: {
+          name: 'worker 4',
+          price: 500,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier4 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier4 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
+      {
+        worker: {
+          name: 'worker 5',
+          price: 1000,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier5 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier5 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
     ];
 
     this.userInfo = Gamelogic.getUserInformation();
@@ -408,7 +465,7 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
     
     
     
-    // Run UI update code every 10ms
+    // Run UI update code every 1000ms
     var gameTick = $interval(function() {
 
       var workers = Gamelogic.getUserInformation();
@@ -427,7 +484,20 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
           workerCount = Gamelogic.getWorkerCount(key);
           increaseValue = workerCount * 5;
           Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 2 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 25;
+          Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 3 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 50;
+          Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 4 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 75;
+          Gamelogic.increaseMoneyBy(increaseValue);
         }
+
       });
 
     }, 1000);
@@ -449,8 +519,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
     var UserInformation= {
 
       currentMoney: 0,
-      workers: [0,0],
-      upgrades: [0,0],
+      workers: [0,0,0,0,0],
+      upgrades: [0,0,0,0,0,],
       settings: {
         color: 'default'
       }
@@ -487,7 +557,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
         UserInformation.settings.color = loadedUserInformation.settings.color;
       } else {
         //TODO: display this is a more clear way OR just gray out the load button until availabe
-        console.log("can't load item!");
+        console.log('can\'t load item!');
       }
     };
 
@@ -497,19 +567,19 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     clickAPI.flipInvertState = function() {
 
-      if (UserInformation.settings.color == 'default') {
+      if (UserInformation.settings.color === 'default') {
         UserInformation.settings.color = 'inverted';
       } else {
         UserInformation.settings.color = 'default';
       }
       
-    }
+    };
 
     clickAPI.resetUserInformation = function () {
 
       UserInformation.currentMoney = 0;
-      UserInformation.workers = [0, 0];
-      UserInformation.upgrades = [0, 0];
+      UserInformation.workers = [0,0,0,0,0];
+      UserInformation.upgrades = [0,0,0,0,0];
       UserInformation.settings.color = 'default';
 
     };
