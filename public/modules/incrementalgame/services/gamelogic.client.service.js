@@ -8,8 +8,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
     var UserInformation= {
 
       currentMoney: 0,
-      workers: [0,0],
-      upgrades: [0,0],
+      workers: [0,0,0,0,0],
+      upgrades: [0,0,0,0,0,],
       settings: {
         color: 'default'
       }
@@ -67,8 +67,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
     clickAPI.resetUserInformation = function () {
 
       UserInformation.currentMoney = 0;
-      UserInformation.workers = [0, 0];
-      UserInformation.upgrades = [0, 0];
+      UserInformation.workers = [0,0,0,0,0];
+      UserInformation.upgrades = [0,0,0,0,0];
       UserInformation.settings.color = 'default';
 
     };

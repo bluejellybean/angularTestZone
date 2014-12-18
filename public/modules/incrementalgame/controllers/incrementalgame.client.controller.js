@@ -26,7 +26,7 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       {
         worker: {
           name: 'worker 2',
-          price: 15,
+          price: 50,
           description: 'was the first worker, gain 5 item per sec',
         },
         upgrade: [
@@ -41,7 +41,64 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
             description: 'Was the second upgrade, x4 worker2 production'
           }
         ]
-      }
+      },
+      {
+        worker: {
+          name: 'worker 3',
+          price: 100,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier3 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier3 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
+      {
+      worker: {
+          name: 'worker 4',
+          price: 500,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier4 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier4 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
+      {
+        worker: {
+          name: 'worker 5',
+          price: 1000,
+          description: 'was the first worker, gain 3 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier5 #1',
+            price: 50,
+            description: 'Was the first upgrade, x2 worker1 production'
+          },
+          {
+            name: 'upgradeTier5 #2',
+            price: 100,
+            description: 'Was the second upgrade, x4 worker1 production'
+          }
+        ]
+      },
     ];
 
     this.userInfo = Gamelogic.getUserInformation();
@@ -111,7 +168,20 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
           workerCount = Gamelogic.getWorkerCount(key);
           increaseValue = workerCount * 5;
           Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 2 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 25;
+          Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 3 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 50;
+          Gamelogic.increaseMoneyBy(increaseValue);
+        } else if ( key === 4 ) {
+          workerCount = Gamelogic.getWorkerCount(key);
+          increaseValue = workerCount * 75;
+          Gamelogic.increaseMoneyBy(increaseValue);
         }
+
       });
 
     }, 1000);
