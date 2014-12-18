@@ -149,7 +149,7 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
     
     
     
-    // Run UI update code every 10ms
+    // Run UI update code every 1000ms
     var gameTick = $interval(function() {
 
       var workers = Gamelogic.getUserInformation();
