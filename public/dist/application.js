@@ -67,28 +67,18 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		.state('about', {
 			url: '/about',
+			controller: 'HeaderController as hee',
 			templateUrl: 'modules/core/views/about.client.view.html'
 		});
 	}
 ]);
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Menus',
-	function($scope, Authentication, Menus) {
-		
-		$scope.isCollapsed = false;
-		$scope.menu = Menus.getMenu('topbar');
+angular.module('core').controller('HeaderController', ['$scope',
+	function() {
 
-		$scope.toggleCollapsibleMenu = function() {
-			$scope.isCollapsed = !$scope.isCollapsed;
-		};
+	}]);
 
-		// Collapsing the menu after navigation
-		$scope.$on('$stateChangeSuccess', function() {
-			$scope.isCollapsed = false;
-		});
-	}
-]);
 'use strict';
 
 
@@ -96,166 +86,28 @@ angular.module('core').controller('HomeController');
 'use strict';
 
 //Menu service used for managing  menus
-angular.module('core').service('Menus', [
+angular.module('core').directive('modalDialog', [
 	function() {
-		// Define a set of default roles
-		this.defaultRoles = ['*'];
+		  return {
+    restrict: 'E',
+    scope: {
+      show: '='
+    },
+    replace: true, // Replace with the template below
+    transclude: true, // we want to insert custom content inside the directive
+    link: function(scope, element, attrs) {
+      scope.dialogStyle = {};
+      if (attrs.width)
+        scope.dialogStyle.width = attrs.width;
+      if (attrs.height)
+        scope.dialogStyle.height = attrs.height;
+      scope.hideModal = function() {
+        scope.show = false;
+      };
+    },
+    template:"<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>"
 
-		// Define the menus object
-		this.menus = {};
-
-		// A private function for rendering decision 
-		var shouldRender = function(user) {
-			if (user) {
-				if (!!~this.roles.indexOf('*')) {
-					return true;
-				} else {
-					for (var userRoleIndex in user.roles) {
-						for (var roleIndex in this.roles) {
-							if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
-								return true;
-							}
-						}
-					}
-				}
-			} else {
-				return this.isPublic;
-			}
-
-			return false;
-		};
-
-		// Validate menu existance
-		this.validateMenuExistance = function(menuId) {
-			if (menuId && menuId.length) {
-				if (this.menus[menuId]) {
-					return true;
-				} else {
-					throw new Error('Menu does not exists');
-				}
-			} else {
-				throw new Error('MenuId was not provided');
-			}
-
-			return false;
-		};
-
-		// Get the menu object by menu id
-		this.getMenu = function(menuId) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		// Add new menu object by menu id
-		this.addMenu = function(menuId, isPublic, roles) {
-			// Create the new menu
-			this.menus[menuId] = {
-				isPublic: isPublic || false,
-				roles: roles || this.defaultRoles,
-				items: [],
-				shouldRender: shouldRender
-			};
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		// Remove existing menu object by menu id
-		this.removeMenu = function(menuId) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Return the menu object
-			delete this.menus[menuId];
-		};
-
-		// Add menu item object
-		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Push new menu item
-			this.menus[menuId].items.push({
-				title: menuItemTitle,
-				link: menuItemURL,
-				menuItemType: menuItemType || 'item',
-				menuItemClass: menuItemType,
-				uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-				isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
-				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
-				position: position || 0,
-				items: [],
-				shouldRender: shouldRender
-			});
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		// Add submenu item object
-		this.addSubMenuItem = function(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Search for menu item
-			for (var itemIndex in this.menus[menuId].items) {
-				if (this.menus[menuId].items[itemIndex].link === rootMenuItemURL) {
-					// Push new submenu item
-					this.menus[menuId].items[itemIndex].items.push({
-						title: menuItemTitle,
-						link: menuItemURL,
-						uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-						isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
-						roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
-						position: position || 0,
-						shouldRender: shouldRender
-					});
-				}
-			}
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		// Remove existing menu object by menu id
-		this.removeMenuItem = function(menuId, menuItemURL) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Search for menu item to remove
-			for (var itemIndex in this.menus[menuId].items) {
-				if (this.menus[menuId].items[itemIndex].link === menuItemURL) {
-					this.menus[menuId].items.splice(itemIndex, 1);
-				}
-			}
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		// Remove existing menu object by menu id
-		this.removeSubMenuItem = function(menuId, submenuItemURL) {
-			// Validate that the menu exists
-			this.validateMenuExistance(menuId);
-
-			// Search for menu item to remove
-			for (var itemIndex in this.menus[menuId].items) {
-				for (var subitemIndex in this.menus[menuId].items[itemIndex].items) {
-					if (this.menus[menuId].items[itemIndex].items[subitemIndex].link === submenuItemURL) {
-						this.menus[menuId].items[itemIndex].items.splice(subitemIndex, 1);
-					}
-				}
-			}
-
-			// Return the menu object
-			return this.menus[menuId];
-		};
-
-		//Adding the topbar menu
-		this.addMenu('topbar');
+  };
 	}
 ]);
 'use strict';
@@ -278,6 +130,14 @@ angular.module('incrementalgame').config(['$stateProvider',
 angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 	function(Gamelogic) {
 
+
+    this.modalShown = false;
+    this.toggleModal = function() {
+      console.log('toggle');
+      this.modalShown = !this.modalShown;
+    };
+
+    
     this.invertedState = Gamelogic.getInvertState();
 
 
@@ -313,112 +173,25 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
    		Gamelogic.flipInvertState();
 	};
 }]);
-
 'use strict';
 
 angular.module('incrementalgame').controller('IncrementalgameController', ['$scope', '$interval', 'Gamelogic',
  function($scope, $interval, Gamelogic) {
 
-    var Tiers = [
-      {
-        worker: {
-          name: 'worker 1',
-          price: 15,
-          description: 'was the first worker, gain 1 item per sec',
-        },
-        upgrade: [
-          {
-            name: 'upgradeTier1 #1',
-            price: 50,
-            description: 'Was the first upgrade, x2 worker1 production'
-          },
-          {
-            name: 'upgradeTier1 #2',
-            price: 100,
-            description: 'Was the second upgrade, x4 worker1 production'
-          }
-        ]
-      },
-      {
-        worker: {
-          name: 'worker 2',
-          price: 50,
-          description: 'was the first worker, gain 5 item per sec',
-        },
-        upgrade: [
-          {
-            name: 'upgradeTier2 #1',
-            price: 500,
-            description: 'Was the first upgrade, x2 worker2 production'
-          },
-          {
-            name: 'upgradeTier2 #2',
-            price: 1000,
-            description: 'Was the second upgrade, x4 worker2 production'
-          }
-        ]
-      },
-      {
-        worker: {
-          name: 'worker 3',
-          price: 100,
-          description: 'was the first worker, gain 3 item per sec',
-        },
-        upgrade: [
-          {
-            name: 'upgradeTier3 #1',
-            price: 50,
-            description: 'Was the first upgrade, x2 worker1 production'
-          },
-          {
-            name: 'upgradeTier3 #2',
-            price: 100,
-            description: 'Was the second upgrade, x4 worker1 production'
-          }
-        ]
-      },
-      {
-      worker: {
-          name: 'worker 4',
-          price: 500,
-          description: 'was the first worker, gain 3 item per sec',
-        },
-        upgrade: [
-          {
-            name: 'upgradeTier4 #1',
-            price: 50,
-            description: 'Was the first upgrade, x2 worker1 production'
-          },
-          {
-            name: 'upgradeTier4 #2',
-            price: 100,
-            description: 'Was the second upgrade, x4 worker1 production'
-          }
-        ]
-      },
-      {
-        worker: {
-          name: 'worker 5',
-          price: 1000,
-          description: 'was the first worker, gain 3 item per sec',
-        },
-        upgrade: [
-          {
-            name: 'upgradeTier5 #1',
-            price: 50,
-            description: 'Was the first upgrade, x2 worker1 production'
-          },
-          {
-            name: 'upgradeTier5 #2',
-            price: 100,
-            description: 'Was the second upgrade, x4 worker1 production'
-          }
-        ]
-      },
-    ];
+
 
     this.userInfo = Gamelogic.getUserInformation();
+    var Tiers = Gamelogic.getTiers();
+  
     this.level = Tiers;
+
+    this.increaseTotalClicks = function() {
+      Gamelogic.increaseTotalClicksByOne();
+    };
+
+/*    this.getClickCount = function() {
+      return GameLogic.getClickCount();
+    };*/
 
     // Increase money every time produce-widget is clicked
     this.produceWidget = function() {
@@ -438,8 +211,16 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
     this.getUpgradeCost = function(tier) {
 
       var upgradeLevel = Gamelogic.getUpgradeLevel(tier);
-
-      return Tiers[tier].upgrade[upgradeLevel].price;
+      //this is bad in here, the 2 should be more geared to the total number of upgrades
+      if ( upgradeLevel < 2 ) {
+        
+        return Tiers[tier].upgrade[upgradeLevel].price;
+      
+      } else {
+      
+        return 9007199254740992;
+      
+      }
     };
 
     this.getMoney = function(){
@@ -472,31 +253,28 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       workers = workers.workers;
 
       var workerCount = '';
+      var upgradeLevel = '';
+      var baseProduction = '';
+
       var increaseValue = '';
-      //this is silly in here
+
       angular.forEach(workers, function(value, key) {
-        
-        if( key === 0 ) {
+
+          upgradeLevel = Gamelogic.getUpgradeLevel(key);
           workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 1;
+          baseProduction = Gamelogic.getBaseProduction(key);
+
+          if ( upgradeLevel > 0 ) {
+
+            increaseValue = baseProduction * workerCount * upgradeLevel * 2;
+          
+          } else {
+            
+            increaseValue = baseProduction * workerCount;
+          
+          }
+          
           Gamelogic.increaseMoneyBy(increaseValue);
-        } else if ( key === 1 ) {
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 5;
-          Gamelogic.increaseMoneyBy(increaseValue);
-        } else if ( key === 2 ) {
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 25;
-          Gamelogic.increaseMoneyBy(increaseValue);
-        } else if ( key === 3 ) {
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 50;
-          Gamelogic.increaseMoneyBy(increaseValue);
-        } else if ( key === 4 ) {
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 75;
-          Gamelogic.increaseMoneyBy(increaseValue);
-        }
 
       });
 
@@ -508,7 +286,6 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
 
   }
 ]);
-
 'use strict';
 
 angular.module('incrementalgame').factory('Gamelogic', [
@@ -521,11 +298,20 @@ angular.module('incrementalgame').factory('Gamelogic', [
       currentMoney: 0,
       workers: [0,0,0,0,0],
       upgrades: [0,0,0,0,0,],
+      totalClicks: 0,
       settings: {
         color: 'default'
       }
 
     };
+
+
+
+
+    clickAPI.increaseTotalClicksByOne = function() {
+      UserInformation.totalClicks = UserInformation.totalClicks + 1;
+    };
+
 
     clickAPI.saveUserInformation = function() {
       
@@ -605,6 +391,10 @@ angular.module('incrementalgame').factory('Gamelogic', [
     
     };
 
+    clickAPI.getBaseProduction = function(tierNumber) {
+      return Tiers[tierNumber].worker.baseProduction;
+    };
+
     clickAPI.increaseMoneyBy = function(moneyValue) {
       
       UserInformation.currentMoney += moneyValue;
@@ -629,6 +419,118 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     };
 
+    clickAPI.getTiers = function() {
+      return Tiers;
+    };
+
+    var Tiers = [
+    //TIER ONE
+      {
+        worker: {
+          name: 'worker 1',
+          price: 1,
+          description: 'The 1st worker, gain 1 item per sec',
+          baseProduction: 1
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier1 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 1 production'
+          },
+          {
+            name: 'upgradeTier1 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 1 production'
+          }
+        ]
+      },
+    //TIER TWO
+      {
+        worker: {
+          name: 'worker 2',
+          price: 50,
+          description: 'The first worker, gain 100 item per sec',
+          baseProduction: 100
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier2 #1',
+            price: 500,
+            description: 'The 1st upgrade, x2 worker 2 production'
+          },
+          {
+            name: 'upgradeTier2 #2',
+            price: 1000,
+            description: 'The 2nd upgrade, x4 worker 2 production'
+          }
+        ]
+      },
+    //TIER THREE
+      {
+        worker: {
+          name: 'worker 3',
+          price: 100,
+          description: 'The first worker, gain 500 item per sec',
+          baseProduction: 500
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier3 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 3 production'
+          },
+          {
+            name: 'upgradeTier3 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 3 production'
+          }
+        ]
+      },
+    //TIER FOUR
+      {
+        worker: {
+          name: 'worker 4',
+          price: 500,
+          description: 'The 4th worker, gain 1000 item per sec',
+          baseProduction: 1000
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier4 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 4 production'
+          },
+          {
+            name: 'upgradeTier4 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 4 production'
+          }
+        ]
+      },
+    //TIER FIVE
+      {
+        worker: {
+          name: 'worker 5',
+          price: 1000,
+          description: 'The 5th worker, gain 1500 item per sec',
+          baseProduction: 1500
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier5 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 5 production'
+          },
+          {
+            name: 'upgradeTier5 #2',
+            price: 100,
+              description: 'The 2nd upgrade, x4 worker 5 production'
+          }
+        ]
+      },
+
+    ];
     return clickAPI;
 	}
 ]);
