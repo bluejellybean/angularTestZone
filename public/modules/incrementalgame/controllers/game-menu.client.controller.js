@@ -6,7 +6,6 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
     this.modalShown = false;
     this.toggleModal = function() {
-      console.log('toggle');
       this.modalShown = !this.modalShown;
     };
 

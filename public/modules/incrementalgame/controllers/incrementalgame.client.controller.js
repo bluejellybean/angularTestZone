@@ -6,9 +6,13 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
 
 
     this.userInfo = Gamelogic.getUserInformation();
+    
+    this.totalWorkers = Gamelogic.getTotalWorkers();
+    
     var Tiers = Gamelogic.getTiers();
-  
     this.level = Tiers;
+
+    
 
     this.increaseTotalClicks = function() {
       Gamelogic.increaseTotalClicksByOne();
@@ -68,11 +72,12 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       Gamelogic.decreaseMoneyBy( Tiers[tier].upgrade[0].price );
       Gamelogic.increaseUpgradeLevel( tier );
     };
-    
-    
+
     
     // Run UI update code every 1000ms
     var gameTick = $interval(function() {
+
+
 
       var workers = Gamelogic.getUserInformation();
       workers = workers.workers;
