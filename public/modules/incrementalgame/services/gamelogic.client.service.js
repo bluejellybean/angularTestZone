@@ -103,6 +103,10 @@ angular.module('incrementalgame').factory('Gamelogic', [
     
     };
 
+    clickAPI.getBaseProduction = function(tierNumber) {
+      return Tiers[tierNumber].worker.baseProduction;
+    };
+
     clickAPI.increaseMoneyBy = function(moneyValue) {
       
       UserInformation.currentMoney += moneyValue;
@@ -136,8 +140,9 @@ angular.module('incrementalgame').factory('Gamelogic', [
       {
         worker: {
           name: 'worker 1',
-          price: 15,
+          price: 1,
           description: 'The 1st worker, gain 1 item per sec',
+          baseProduction: 1
         },
         upgrade: [
           {
@@ -158,6 +163,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
           name: 'worker 2',
           price: 50,
           description: 'The first worker, gain 100 item per sec',
+          baseProduction: 100
         },
         upgrade: [
           {
@@ -178,6 +184,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
           name: 'worker 3',
           price: 100,
           description: 'The first worker, gain 500 item per sec',
+          baseProduction: 500
         },
         upgrade: [
           {
@@ -198,6 +205,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
           name: 'worker 4',
           price: 500,
           description: 'The 4th worker, gain 1000 item per sec',
+          baseProduction: 1000
         },
         upgrade: [
           {
@@ -218,6 +226,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
           name: 'worker 5',
           price: 1000,
           description: 'The 5th worker, gain 1500 item per sec',
+          baseProduction: 1500
         },
         upgrade: [
           {

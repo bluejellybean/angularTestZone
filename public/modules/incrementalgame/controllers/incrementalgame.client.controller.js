@@ -36,8 +36,16 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
     this.getUpgradeCost = function(tier) {
 
       var upgradeLevel = Gamelogic.getUpgradeLevel(tier);
-
-      return Tiers[tier].upgrade[upgradeLevel].price;
+      //this is bad in here, the 2 should be more geared to the total number of upgrades
+      if ( upgradeLevel < 2 ) {
+        
+        return Tiers[tier].upgrade[upgradeLevel].price;
+      
+      } else {
+      
+        return 9007199254740992;
+      
+      }
     };
 
     this.getMoney = function(){
@@ -70,41 +78,28 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       workers = workers.workers;
 
       var workerCount = '';
+      var upgradeLevel = '';
+      var baseProduction = '';
+
       var increaseValue = '';
-      //this is silly in here
+
       angular.forEach(workers, function(value, key) {
-        
-        if( key === 0 ) {
 
+          upgradeLevel = Gamelogic.getUpgradeLevel(key);
           workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 1;
-          Gamelogic.increaseMoneyBy(increaseValue);
+          baseProduction = Gamelogic.getBaseProduction(key);
 
-        } else if ( key === 1 ) {
+          if ( upgradeLevel > 0 ) {
 
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 5;
-          Gamelogic.increaseMoneyBy(increaseValue);
-
-        } else if ( key === 2 ) {
-
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 25;
-          Gamelogic.increaseMoneyBy(increaseValue);
-
-        } else if ( key === 3 ) {
-
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 50;
-          Gamelogic.increaseMoneyBy(increaseValue);
-
-        } else if ( key === 4 ) {
-
-          workerCount = Gamelogic.getWorkerCount(key);
-          increaseValue = workerCount * 75;
-          Gamelogic.increaseMoneyBy(increaseValue);
+            increaseValue = baseProduction * workerCount * upgradeLevel * 2;
           
-        }
+          } else {
+            
+            increaseValue = baseProduction * workerCount;
+          
+          }
+          
+          Gamelogic.increaseMoneyBy(increaseValue);
 
       });
 
