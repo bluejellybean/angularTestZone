@@ -88,26 +88,27 @@ angular.module('core').controller('HomeController');
 //Menu service used for managing  menus
 angular.module('core').directive('modalDialog', [
 	function() {
-		  return {
-    restrict: 'E',
-    scope: {
-      show: '='
-    },
-    replace: true, // Replace with the template below
-    transclude: true, // we want to insert custom content inside the directive
-    link: function(scope, element, attrs) {
-      scope.dialogStyle = {};
-      if (attrs.width)
-        scope.dialogStyle.width = attrs.width;
-      if (attrs.height)
-        scope.dialogStyle.height = attrs.height;
-      scope.hideModal = function() {
-        scope.show = false;
-      };
-    },
-    template:"<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>"
+	  return {
+      restrict: 'E',
+      scope: {
+        show: '='
+      },
+      replace: true, // Replace with the template below
+      transclude: true, // we want to insert custom content inside the directive
+      link: function(scope, element, attrs) {
+        scope.dialogStyle = {};
+        if (attrs.width)
+          scope.dialogStyle.width = attrs.width;
+        if (attrs.height)
+          scope.dialogStyle.height = attrs.height;
+        scope.hideModal = function() {
+          scope.show = false;
+        };
+      },
+    
+      template:'<div class="ng-modal" ng-show="show"><div class="ng-modal-overlay" ng-click="hideModal()"></div><div class="ng-modal-dialog" ng-style="dialogStyle"><div class="ng-modal-close" ng-click="hideModal()">X</div><div class="ng-modal-dialog-content" ng-transclude></div></div></div>'
 
-  };
+    };
 	}
 ]);
 'use strict';
@@ -133,7 +134,6 @@ angular.module('incrementalgame').controller('GameMenuController', ['Gamelogic',
 
     this.modalShown = false;
     this.toggleModal = function() {
-      console.log('toggle');
       this.modalShown = !this.modalShown;
     };
 
@@ -181,9 +181,13 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
 
 
     this.userInfo = Gamelogic.getUserInformation();
+    
+    this.totalWorkers = Gamelogic.getTotalWorkers();
+    
     var Tiers = Gamelogic.getTiers();
-  
     this.level = Tiers;
+
+    
 
     this.increaseTotalClicks = function() {
       Gamelogic.increaseTotalClicksByOne();
@@ -243,11 +247,12 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
       Gamelogic.decreaseMoneyBy( Tiers[tier].upgrade[0].price );
       Gamelogic.increaseUpgradeLevel( tier );
     };
-    
-    
+
     
     // Run UI update code every 1000ms
     var gameTick = $interval(function() {
+
+
 
       var workers = Gamelogic.getUserInformation();
       workers = workers.workers;
@@ -289,11 +294,11 @@ angular.module('incrementalgame').controller('IncrementalgameController', ['$sco
 'use strict';
 
 angular.module('incrementalgame').factory('Gamelogic', [
-	function() {
+  function() {
 
     var clickAPI = {};
 
-    var UserInformation= {
+    var UserInformation = {
 
       currentMoney: 0,
       workers: [0,0,0,0,0],
@@ -305,8 +310,26 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     };
 
+    var TotalWorkers = {
+      count: 0
+    };
+
+    clickAPI.getTotalWorkers = function() {
+
+      return TotalWorkers;
+    };
 
 
+    clickAPI.findTotalWorkerCount = function() {
+      var workerCount = 0;
+      
+      angular.forEach(UserInformation.workers, function(value, key) {
+          workerCount = workerCount += value;
+      });
+      
+      TotalWorkers.count = workerCount;
+      return TotalWorkers;
+    };
 
     clickAPI.increaseTotalClicksByOne = function() {
       UserInformation.totalClicks = UserInformation.totalClicks + 1;
@@ -341,6 +364,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
         UserInformation.workers = loadedUserInformation.workers;
         UserInformation.upgrades = loadedUserInformation.upgrades;
         UserInformation.settings.color = loadedUserInformation.settings.color;
+
+        this.findTotalWorkerCount();
       } else {
         //TODO: display this is a more clear way OR just gray out the load button until availabe
         console.log('can\'t load item!');
@@ -408,7 +433,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
     };
 
     clickAPI.increaseWorkerCount = function(workerNumber) {
-
+      
+      TotalWorkers.count += 1;
       UserInformation.workers[workerNumber] += 1;
     
     };
@@ -424,7 +450,8 @@ angular.module('incrementalgame').factory('Gamelogic', [
     };
 
     var Tiers = [
-    //TIER ONE
+    
+      //TIER ONE
       {
         worker: {
           name: 'worker 1',
@@ -445,7 +472,7 @@ angular.module('incrementalgame').factory('Gamelogic', [
           }
         ]
       },
-    //TIER TWO
+      //TIER TWO
       {
         worker: {
           name: 'worker 2',
@@ -466,65 +493,65 @@ angular.module('incrementalgame').factory('Gamelogic', [
           }
         ]
       },
-    //TIER THREE
+      //TIER THREE
       {
         worker: {
           name: 'worker 3',
-          price: 100,
-          description: 'The first worker, gain 500 item per sec',
+          price: 2000,
+          description: 'The first worker, gain 2000 item per sec',
           baseProduction: 500
         },
         upgrade: [
           {
             name: 'upgradeTier3 #1',
-            price: 50,
+            price: 5000,
             description: 'The 1st upgrade, x2 worker 3 production'
           },
           {
             name: 'upgradeTier3 #2',
-            price: 100,
+            price: 10000,
             description: 'The 2nd upgrade, x4 worker 3 production'
           }
         ]
       },
-    //TIER FOUR
+      //TIER FOUR
       {
         worker: {
           name: 'worker 4',
-          price: 500,
-          description: 'The 4th worker, gain 1000 item per sec',
+          price: 10000,
+          description: 'The 4th worker, gain 10000 item per sec',
           baseProduction: 1000
         },
         upgrade: [
           {
             name: 'upgradeTier4 #1',
-            price: 50,
+            price: 20000,
             description: 'The 1st upgrade, x2 worker 4 production'
           },
           {
             name: 'upgradeTier4 #2',
-            price: 100,
+            price: 40000,
             description: 'The 2nd upgrade, x4 worker 4 production'
           }
         ]
       },
-    //TIER FIVE
+      //TIER FIVE
       {
         worker: {
           name: 'worker 5',
-          price: 1000,
-          description: 'The 5th worker, gain 1500 item per sec',
-          baseProduction: 1500
+          price: 100000,
+          description: 'The 5th worker, gain 100000 item per sec',
+          baseProduction: 2000
         },
         upgrade: [
           {
             name: 'upgradeTier5 #1',
-            price: 50,
+            price: 200000,
             description: 'The 1st upgrade, x2 worker 5 production'
           },
           {
             name: 'upgradeTier5 #2',
-            price: 100,
+            price: 400000,
               description: 'The 2nd upgrade, x4 worker 5 production'
           }
         ]
@@ -532,5 +559,5 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     ];
     return clickAPI;
-	}
+  }
 ]);
