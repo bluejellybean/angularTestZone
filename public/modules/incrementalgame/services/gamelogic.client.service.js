@@ -17,13 +17,13 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     };
 
+
+
+
     clickAPI.increaseTotalClicksByOne = function() {
       UserInformation.totalClicks = UserInformation.totalClicks + 1;
     };
 
-/*    clickAPI.getClickCount = function() {
-      return UserInformation.clickCount;
-    }*/
 
     clickAPI.saveUserInformation = function() {
       
@@ -127,6 +127,113 @@ angular.module('incrementalgame').factory('Gamelogic', [
 
     };
 
+    clickAPI.getTiers = function() {
+      return Tiers;
+    };
+
+    var Tiers = [
+    //TIER ONE
+      {
+        worker: {
+          name: 'worker 1',
+          price: 15,
+          description: 'The 1st worker, gain 1 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier1 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 1 production'
+          },
+          {
+            name: 'upgradeTier1 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 1 production'
+          }
+        ]
+      },
+    //TIER TWO
+      {
+        worker: {
+          name: 'worker 2',
+          price: 50,
+          description: 'The first worker, gain 100 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier2 #1',
+            price: 500,
+            description: 'The 1st upgrade, x2 worker 2 production'
+          },
+          {
+            name: 'upgradeTier2 #2',
+            price: 1000,
+            description: 'The 2nd upgrade, x4 worker 2 production'
+          }
+        ]
+      },
+    //TIER THREE
+      {
+        worker: {
+          name: 'worker 3',
+          price: 100,
+          description: 'The first worker, gain 500 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier3 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 3 production'
+          },
+          {
+            name: 'upgradeTier3 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 3 production'
+          }
+        ]
+      },
+    //TIER FOUR
+      {
+        worker: {
+          name: 'worker 4',
+          price: 500,
+          description: 'The 4th worker, gain 1000 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier4 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 4 production'
+          },
+          {
+            name: 'upgradeTier4 #2',
+            price: 100,
+            description: 'The 2nd upgrade, x4 worker 4 production'
+          }
+        ]
+      },
+    //TIER FIVE
+      {
+        worker: {
+          name: 'worker 5',
+          price: 1000,
+          description: 'The 5th worker, gain 1500 item per sec',
+        },
+        upgrade: [
+          {
+            name: 'upgradeTier5 #1',
+            price: 50,
+            description: 'The 1st upgrade, x2 worker 5 production'
+          },
+          {
+            name: 'upgradeTier5 #2',
+            price: 100,
+              description: 'The 2nd upgrade, x4 worker 5 production'
+          }
+        ]
+      },
+
+    ];
     return clickAPI;
 	}
 ]);
