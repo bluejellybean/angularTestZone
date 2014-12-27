@@ -211,7 +211,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication',
 	function($scope, Authentication) {
 		
-		console.log('auth', Authentication);
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 
@@ -228,7 +227,6 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Menu',
 	function($scope, Authentication, Menu) {
 		// This provides Authentication context.
-		console.log('auth',Authentication);
 		this.menu = Menu.getMenu('topbar');
 		this.authentication = Authentication;
 	}
@@ -1038,7 +1036,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
-	//	if (!$scope.user) $location.path('/signin');
+		if (!$scope.user) $location.path('/signin');
 
 		// Check if there are additional accounts 
 		$scope.hasConnectedAdditionalSocialAccounts = function(provider) {
@@ -1108,7 +1106,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 angular.module('users').factory('Authentication', [
 	function() {
 		var _this = this;
-		console.log('this',window.user)
 		_this._data = {
 			user: window.user
 		};
