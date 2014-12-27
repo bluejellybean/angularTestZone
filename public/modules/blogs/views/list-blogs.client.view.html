@@ -1,0 +1,15 @@
+<section data-ng-controller="BlogsController" data-ng-init="find()">
+
+    <div>
+        <a data-ng-repeat="blog in blogs" data-ng-href="#!/blogs/{{blog._id}}">
+			<h4 class="article-list-title" data-ng-bind="blog.name"></h4>
+				Posted on
+				<span data-ng-bind="blog.created | date:'mediumDate'"></span>
+        </a>
+    </div>
+
+    <div class="alert alert-warning text-center" data-ng-hide="!blogs.$resolved || blogs.length">
+    	No posts yet, sorry :(
+    </div>
+
+</section>

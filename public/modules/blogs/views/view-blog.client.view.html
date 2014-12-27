@@ -1,0 +1,30 @@
+<section data-ng-controller="BlogsController" data-ng-init="findOne()">
+	
+	<div class="row">
+
+		<div class="two columns">&nbsp;</div>
+
+		<div class="eight columns">
+			<h1 data-ng-bind="blog.name"></h1>
+			<em>
+				Posted on
+				<span data-ng-bind="blog.created | date:'mediumDate'"></span>
+			</em>
+		</div>
+	
+	</div>
+
+    <div class="row">
+
+		<div class="two columns">&nbsp;</div>
+		
+		<div class="eight columns">
+
+			<div ng-bind-html="blog.content"></div>
+
+		</div>
+
+	</div>
+
+
+</section>
