@@ -8,7 +8,6 @@
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication',
 	function($scope, Authentication) {
 		
-		console.log('auth', Authentication);
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 

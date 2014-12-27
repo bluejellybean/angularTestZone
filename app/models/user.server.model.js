@@ -110,7 +110,6 @@ UserSchema.virtual('isLocked').get(function() {
 
 UserSchema.pre('save', function(next) {
     var user = this;
-    console.log(user);
 
     // only hash the password if it has been modified (or is new)
     if (!this.isModified('password')) return next();
