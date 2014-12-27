@@ -1,0 +1,30 @@
+<section class="row" data-ng-controller="AuthenticationController">
+
+	<h3 class="col-md-12 text-center">Hey there, are you me?</h3>
+		<form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
+			<fieldset>
+				<div class="row">
+					<div class="five columns">
+						<label for="username">Username</label>
+						<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+					</div>
+				</div>
+				<div class="row">
+					<div class="five columns">
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="five columns">
+						<button type="submit" class="btn btn-primary">Sign in</button>
+					</div>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+
+</section>

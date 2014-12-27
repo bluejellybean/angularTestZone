@@ -36,9 +36,9 @@
 
 
 	<!--Embedding The User Object-->
-<!--	<script type="text/javascript">
+	<script type="text/javascript">
 		var user = {{ user | json | safe }};
-	</script>-->
+	</script>
 
 	<!--Application JavaScript Files-->
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
