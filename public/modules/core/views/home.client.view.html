@@ -1,6 +1,6 @@
 <section>
 
-	<h1>Welcome!</h1>
+	<h1>Welcome! {{home.authentication.user.username || ""}}</h1>
 	<p>
 	This site is currently under heavy development, so please excuse the mess!
 	</p>
@@ -12,6 +12,8 @@
 
 	<ul>
 		<li><a href="/#!/incrementalgame">Incremental Game!</a></li>
+		<li data-ng-if="home.menu.shouldRender(home.authentication.user);"><a href="/admin">do cool admin sutff!</a></li>
+		<li data-ng-if="home.menu.shouldRender(home.authentication.user);"><a href="/auth/signout">Log Off!</a></li>
 	</ul>
 </section>
 
