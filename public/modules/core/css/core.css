@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: url(../img/light_toast.png);
+  background-image: url(/modules/core/img/light_toast.png);
 }
 
 .content > .container {
