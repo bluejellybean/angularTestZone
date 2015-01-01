@@ -5,6 +5,19 @@
 
 }
 
+body {
+  background-image: url(../img/light_toast.png);
+}
+
+.content > .container {
+
+  -mox-box-shadow:    0px 0px 5px 3px #ccc;
+  -webkit-box-shadow: 0px 0px 5px 3px #ccc;
+  box-shadow:         0px 0px 5px 3px #ccc;
+  border-radius: 3px;
+  padding: 1%;
+  background-color: white;
+}
 
 .undecorated-link:hover {
 	text-decoration: none;
