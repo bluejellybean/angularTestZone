@@ -57,6 +57,15 @@ angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams',
 			$scope.blogs = Blogs.query();
 		};
 
+		//Find most recent blog
+		$scope.findRecent = function() {
+
+			Blogs.query().$promise.then(function(data) {
+				$scope.blogs = data[0]; 
+			});
+
+		};
+
 		// Find existing Blog
 		$scope.findOne = function() {
 			$scope.blog = Blogs.get({ 

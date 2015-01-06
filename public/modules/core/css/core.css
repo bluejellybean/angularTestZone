@@ -167,3 +167,34 @@ a.fill-div {
   font-weight: bold;
   font-family: 'arial', 'sans-serif';
 }
+
+
+
+::selection {
+  background-color: #a8d1ff;
+}
+
+::-moz-selection {
+  background-color: #a8d1ff;
+}
+
+.sidebar-box {
+  max-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-box .read-more { 
+  position: absolute; 
+  bottom: 0; left: 0;
+  width: 100%; 
+  text-align: center; 
+  margin: 0; padding: 130px 0; 
+  
+  /* "transparent" only works here because == rgba(0,0,0,0) */ 
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgba(255,0,0,0)),color-stop(1, rgba(255,0,0,100)));
+        background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,100));
+        background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,100));
+        background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,100));
+        background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,100));
+}
+

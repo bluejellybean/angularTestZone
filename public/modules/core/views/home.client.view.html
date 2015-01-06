@@ -1,5 +1,4 @@
-<section>
-
+<!-- <section data-ng-controller="BlogsController" data-ng-init="findRecent()">
 <div class="row">
 	<h1>Welcome! {{home.authentication.user.username || ""}}</h1>
 	<p>
@@ -17,6 +16,82 @@
 		<li data-ng-if="home.menu.shouldRender(home.authentication.user);"><a href="/auth/signout">Log Off!</a></li>
 	</ul>
 </div>
+
+
+
+
+<div class="row">
+
+	<div class="four columns">
+	
+		<p>blah</p>
+
+		<li><a href="/#!/incrementalgame">Incremental Game!</a></li>
+
+	</div>
+	
+
+	<div class="four columns">
+		<a data-ng-href="#!/blogs/{{blogs._id}}">
+		<h3 data-ng-bind="blogs.name"></h3>
+			</a>
+		<div class="sidebar-box">
+			<p ng-bind-html="blogs.content"></p>
+			<p class="read-more"></p>
+		</div>
+
+	</div>
+
+	<div class="four columns">
+		<a data-ng-href="#!/blogs/{{blogs._id}}">
+		<h3 data-ng-bind="blogs.name"></h3>
+			</a>
+		<div class="sidebar-box">
+			<p ng-bind-html="blogs.content"></p>
+			<p class="read-more"></p>
+		</div> -->
+
+<!-- 			<h3 data-ng-bind="blogs.name"></h3>
+			<em>
+				Posted on
+				<span data-ng-bind="blogs.created | date:'mediumDate'"></span>
+			</em>
+		<div ng-bind-html="blogs.content"></div> -->
+<!-- 	</div>
+</div>
+
+
+
+</section> -->
+
+
+	<section data-ng-controller="BlogsController" data-ng-init="findRecent()">
+	
+	<div class="row">
+
+		<div class="two columns">&nbsp;</div>
+
+		<div class="eight columns">
+			<h1 data-ng-bind="blogs.name"></h1>
+			<em>
+				Posted on
+				<span data-ng-bind="blogs.created | date:'mediumDate'"></span>
+			</em>
+		</div>
+	
+	</div>
+
+    <div class="row">
+
+		<div class="two columns">&nbsp;</div>
+		
+		<div class="eight columns">
+
+			<div ng-bind-html="blogs.content"></div>
+
+		</div>
+
+	</div>
 
 
 </section>
